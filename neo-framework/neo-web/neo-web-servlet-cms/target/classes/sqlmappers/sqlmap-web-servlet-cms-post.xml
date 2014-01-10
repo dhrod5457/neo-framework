@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cms">
+	<select id="getCmsPostsList" resultType="kr.co.neo.web.servlet.cms.app.domain.CmsPost" parameterType="kr.co.neo.web.servlet.cms.app.domain.CmsPost"> 
+		SELECT
+			*
+		FROM
+			SA_CMS_POSTS
+		ORDER BY
+			ID DESC
+		LIMIT #{startNo},#{pageSize}
+	</select>
+	
+	<select id="getCmsPostsCount" resultType="int">
+		SELECT
+			COUNT(*)
+		FROM
+			SA_CMS_POSTS
+	</select>
+	
+	<select id="getCmsPost" resultType="kr.co.neo.web.servlet.cms.app.domain.CmsPost" parameterType="kr.co.neo.web.servlet.cms.app.domain.CmsPost"> 
+		SELECT
+			*
+		FROM
+			SA_CMS_POSTS
+		WHERE
+			ID = #{ID}
+	</select>
+		
+	<insert id="insertCmsPosts" parameterType="kr.co.neo.web.servlet.cms.app.domain.CmsPost">
+		<selectKey keyProperty="ID" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		
+		INSERT INTO SA_CMS_POSTS (
+			author,
+			content,
+			title,
+			stat,
+			pwd,
+			reg_date,
+			modify_date,
+			type
+		)
+		VALUES
+			(
+				#{author},
+				#{content},
+				#{title},
+				#{stat},
+				#{pwd},
+				now(),
+				#{modify_date},
+				#{type}
+			)
+	</insert>
+	
+	<update id="updateCmsPosts" parameterType="kr.co.neo.web.servlet.cms.app.domain.CmsPost">
+		UPDATE SA_CMS_POSTS 
+			<set>
+				<if test="author != -1">author = #{author},</if>
+				<if test="content != null">content = #{content},</if>
+				<if test="title != null">title = #{title},</if>
+				<if test="stat != null">stat = #{stat},</if>
+				<if test="pwd != null">pwd = #{pwd},</if>
+				<if test="type != null">type = #{type},</if>
+			</set>
+		WHERE
+			ID = #{ID}
+	</update>
+	
+	<delete id="deleteCmsPosts" parameterType="kr.co.neo.web.servlet.cms.app.domain.CmsPost">
+		DELETE
+		FROM
+			SA_CMS_POSTS
+		WHERE
+			ID = #{ID}
+	</delete>
+</mapper>

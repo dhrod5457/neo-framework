@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="option">
+	<insert id="insertOption" parameterType="kr.co.neo.nativeness.spring.option.OptionDomain">
+		INSERT INTO SA_CORE_OPTIONS 
+			( option_name , option_value , option_group)
+		VALUES
+			( #{option_name} , #{option_value} ,#{option_group} )
+	</insert>
+	
+	<insert id="updateOption" parameterType="kr.co.neo.nativeness.spring.option.OptionDomain">
+		UPDATE SA_CORE_OPTIONS
+			<set>
+				<if test="option_value != null">option_value = #{option_value},</if>
+				<if test="option_group != null">option_group=#{option_group}</if>
+			</set>
+		WHERE
+			option_name = #{option_name}
+	</insert>
+	
+	<delete id="deleteOptionByName" parameterType="string">
+		DELETE 
+			FROM 
+				SA_CORE_OPTIONS 
+			WHERE
+				option_name = #{option_name}
+	</delete>
+	
+	<delete id="deleteOptionById" parameterType="int">
+		DELETE 
+			FROM 
+				SA_CORE_OPTIONS 
+			WHERE
+				option_name = #{option_id}
+	</delete>
+	
+	<select id="getOptionByName" parameterType="string" resultType="kr.co.neo.nativeness.spring.option.OptionDomain">
+		SELECT
+			*
+		FROM
+			SA_CORE_OPTIONS
+		WHERE
+			option_name = #{option_name}
+	</select>
+	
+	<select id="getOptionById" parameterType="int" resultType="kr.co.neo.nativeness.spring.option.OptionDomain">
+		SELECT
+			*
+		FROM
+			SA_CORE_OPTIONS
+		WHERE
+			option_name = #{option_id}
+	</select>
+	
+	<select id="getOptionListByGroup" parameterType="string" resultType="kr.co.neo.nativeness.spring.option.OptionDomain">
+		SELECT
+			*
+		FROM
+			SA_CORE_OPTIONS
+		WHERE
+			option_group = #{option_group}
+	</select>
+	
+	<select id="getOptionList" resultType="kr.co.neo.nativeness.spring.option.OptionDomain">
+		SELECT
+			*
+		FROM
+			SA_CORE_OPTIONS
+	</select>
+	
+	<select id="getOptionTotalCount">
+		SELECT
+			COUNT(*)
+		FROM
+			SA_CORE_OPTIONS
+	</select>
+	
+</mapper>

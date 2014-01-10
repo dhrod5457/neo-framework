@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+						"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cmsNav">
+	<insert id="insertNavMenu" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenu">
+		INSERT INTO SA_CMS_MENU 
+			(name,url,target,grp,parent,ord)
+		VALUES
+			(#{name},#{url},#{target},#{grp},#{parent},#{ord})
+			
+		<selectKey keyProperty="ID" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateNavMenu" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenu">
+		UPDATE SA_CMS_MENU
+			<set>
+				<if test="name != null">name = #{name},</if>
+				<if test="target != null">target = #{target},</if>
+				<if test="url != null">url = #{url},</if>
+				<if test="grp != -1">grp = #{grp},</if>
+				<if test="ord != -1">ord = #{ord},</if>
+				<if test="parent != -1">parent = #{parent}</if>
+			</set> 
+		WHERE 
+			ID = #{ID}
+	</update>
+	
+	<delete id="deleteNavMenu" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenu">
+		DELETE FROM SA_CMS_MENU WHERE ID = #{ID}
+	</delete>
+	
+	<select id="getNavMenu" resultType="kr.co.neo.web.servlet.cms.nav.domain.NavMenu" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenu">
+		SELECT * FROM SA_CMS_MENU WHERE ID=#{ID}
+	</select>
+	
+	<select id="getNavMenuList" resultType="kr.co.neo.web.servlet.cms.nav.domain.NavMenu" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenu">
+		SELECT * FROM SA_CMS_MENU WHERE grp = #{grp} ORDER BY parent,ord asc
+	</select>
+	
+	<insert id="insertNavMenuGrp" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenuGrp">
+		INSERT INTO SA_CMS_MENU_GRP (NAME) VALUES (#{name})
+		<selectKey keyProperty="ID" resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	
+	<update id="updateNavMenuGrp" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenuGrp">
+		UPDATE SA_CMS_MENU_GRP 
+			SET name=#{name}
+		WHERE ID=#{ID} 
+	</update>
+	
+	<delete id="deleteNavMenuGrp" parameterType="kr.co.neo.web.servlet.cms.nav.domain.NavMenuGrp">
+		DELETE FROM SA_CMS_MENU_GRP WHERE ID = #{ID}
+	</delete>
+	
+	<select id="getNavMenuGrpList" resultType="kr.co.neo.web.servlet.cms.nav.domain.NavMenuGrp">
+		SELECT * FROM SA_CMS_MENU_GRP
+	</select>
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="neo-web-app">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <dependent-module archiveName="neo-web-core-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/neo-web-core/neo-web-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="neo-web-servlet-cms-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/neo-web-servlet-cms/neo-web-servlet-cms">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="neo-web-servlet-file-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/neo-web-servlet-file/neo-web-servlet-file">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="neo-native-spring-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/neo-native-spring/neo-native-spring">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="neo-native-core-0.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/neo-native-core/neo-native-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="neo-web-app"/>
+        <property name="java-output-path" value="/neo-web-app/target/classes"/>
+    </wb-module>
+</project-modules>
