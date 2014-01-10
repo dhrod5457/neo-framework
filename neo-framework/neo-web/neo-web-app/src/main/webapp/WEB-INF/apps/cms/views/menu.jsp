@@ -115,17 +115,14 @@
 					<%
 						if(menuTree != null){
 							menuTree.iterating(new JspTreeIterator<NavMenu>(out) {
-								@Override
 								public void startChild(TreeNode<NavMenu> node) throws Exception {
 									write("<ol class=\"dd-list\">");
 								}
 								
-								@Override
 								public void endChild(TreeNode<NavMenu> node) throws Exception {
 									write("</ol>");
 								}
 								
-								@Override
 								public void doStart(TreeNode<NavMenu> node) throws Exception {
 									NavMenu menu = node.getData();
 									
@@ -164,7 +161,6 @@
 									write("</div>");
 								}
 								
-								@Override
 								public void doEnd(TreeNode<NavMenu> node) throws Exception {
 									write("</li>");
 								}
